@@ -1,0 +1,843 @@
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    /* Colors */
+    --primary: #1e3a5f;
+    --accent: #6b8e5f;
+    --cream: #f8f7f3;
+    --text-dark: #2c3e50;
+    --text-light: #7f8c8d;
+    --border: #e0e0e0;
+    --hover: #16293a;
+    
+    /* Typography */
+    --font-display: 'Georgia', serif;
+    --font-body: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    
+    /* Spacing */
+    --spacing-xs: 0.5rem;
+    --spacing-sm: 1rem;
+    --spacing-md: 1.5rem;
+    --spacing-lg: 2rem;
+    --spacing-xl: 3rem;
+    --spacing-2xl: 4rem;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: var(--font-body);
+    color: var(--text-dark);
+    background-color: #fff;
+    line-height: 1.6;
+
+    /* REQUISITO: O layout principal gerenciado via grid-template-areas */
+    display: grid;
+    grid-template-areas: 
+        "cabecalho"
+        "conteudo"
+        "rodape";
+    grid-template-rows: auto 1fr auto;
+    min-height: 100vh;
+}
+
+/* ============= CONTAINER ============= */
+.container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 var(--spacing-md);
+}
+
+@media (min-width: 768px) {
+    .container {
+        padding: 0 var(--spacing-lg);
+    }
+}
+
+@media (min-width: 1024px) {
+    .container {
+        padding: 0 var(--spacing-xl);
+    }
+}
+
+/* ============= HEADER & NAVIGATION ============= */
+.header {
+    grid-area: cabecalho;
+    background-color: #fff;
+    border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.header-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--spacing-md) 0;
+    flex-wrap: wrap; /* Permite que o menu desça automaticamente no mobile */
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    text-decoration: none;
+    color: var(--primary);
+    cursor: pointer;
+}
+
+.logo-icon {
+    width: 40px;
+    height: 40px;
+    background-color: var(--primary);
+    color: white;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 1.2rem;
+}
+
+.logo h1 {
+    font-size: 1.3rem;
+    font-weight: bold;
+    display: none;
+}
+
+@media (min-width: 640px) {
+    .logo h1 {
+        display: block;
+    }
+}
+
+/* Navigation (Transformação pura via CSS Grid) */
+.nav-desktop {
+    display: grid;
+    grid-auto-flow: row; /* REQUISITO: Lista vertical no mobile */
+    width: 100%;
+    text-align: center;
+    gap: var(--spacing-sm);
+    margin-top: var(--spacing-sm);
+    align-items: center;
+}
+
+@media (min-width: 768px) {
+    .nav-desktop {
+        /* REQUISITO: Menu em grade horizontal complexa (desktop) */
+        grid-auto-flow: column;
+        width: auto;
+        margin-top: 0;
+        gap: var(--spacing-lg);
+    }
+}
+
+.nav-desktop a {
+    color: var(--text-dark);
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+.nav-desktop a:hover {
+    color: var(--primary);
+}
+
+/* ============= BUTTONS ============= */
+.btn-primary {
+    padding: 0.75rem 1.5rem;
+    background-color: var(--primary);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background-color 0.3s ease;
+}
+
+.btn-primary:hover {
+    background-color: var(--hover);
+}
+
+.btn-secondary {
+    padding: 0.75rem 2rem;
+    background-color: white;
+    color: var(--primary);
+    border: 2px solid var(--primary);
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.btn-secondary:hover {
+    background-color: var(--primary);
+    color: white;
+}
+
+.btn-outline {
+    padding: 0.75rem 2rem;
+    background-color: transparent;
+    color: white;
+    border: 2px solid white;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.btn-outline:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+
+.hero {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary) 60%, var(--accent) 100%);
+    color: white;
+    padding: var(--spacing-2xl) 0;
+}
+
+.hero-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--spacing-xl);
+    align-items: center;
+}
+
+@media (min-width: 768px) {
+    .hero-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+.hero-text h1 {
+    font-family: var(--font-display);
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin-bottom: var(--spacing-md);
+    line-height: 1.2;
+}
+
+@media (min-width: 768px) {
+    .hero-text h1 {
+        font-size: 3rem;
+    }
+}
+
+.hero-text p {
+    font-size: 1.1rem;
+    margin-bottom: var(--spacing-lg);
+    opacity: 0.95;
+}
+
+.hero-buttons {
+    display: flex;
+    gap: var(--spacing-md);
+    flex-wrap: wrap;
+}
+
+.hero-image {
+    display: none;
+}
+
+@media (min-width: 768px) {
+    .hero-image {
+        display: block;
+    }
+}
+
+.placeholder {
+    width: 100%;
+    height: 320px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    border-radius: 16px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: var(--spacing-md);
+}
+
+.placeholder svg {
+    width: 128px;
+    height: 128px;
+    opacity: 0.5;
+}
+
+.placeholder p {
+    color: rgba(255, 255, 255, 0.6);
+    font-weight: 500;
+}
+
+
+.about {
+    padding: var(--spacing-2xl) 0;
+    background-color: #fff;
+}
+
+.about h2 {
+    font-family: var(--font-display);
+    font-size: 2.5rem;
+    text-align: center;
+    margin-bottom: var(--spacing-2xl);
+    color: var(--primary);
+}
+
+.about-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--spacing-xl);
+    align-items: center;
+}
+
+@media (min-width: 768px) {
+    .about-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+.about-image {
+    order: 2;
+}
+
+@media (min-width: 768px) {
+    .about-image {
+        order: 1;
+    }
+}
+
+.about-image .placeholder {
+    height: 384px;
+    background: linear-gradient(135deg, rgba(107, 142, 95, 0.1) 0%, rgba(30, 58, 95, 0.05) 100%);
+    border-color: rgba(30, 58, 95, 0.2);
+}
+
+.about-text {
+    order: 1;
+}
+
+@media (min-width: 768px) {
+    .about-text {
+        order: 2;
+    }
+}
+
+.about-text p {
+    font-size: 1.1rem;
+    margin-bottom: var(--spacing-lg);
+    color: var(--text-light);
+    line-height: 1.8;
+}
+
+.about-values {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-md);
+    margin-top: var(--spacing-lg);
+}
+
+.value-item {
+    display: flex;
+    gap: var(--spacing-md);
+}
+
+.value-icon {
+    width: 24px;
+    height: 24px;
+    background-color: var(--accent);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-top: 4px;
+    font-weight: bold;
+    font-size: 0.9rem;
+}
+
+.value-item h3 {
+    font-weight: bold;
+    color: var(--primary);
+    margin-bottom: 0.25rem;
+}
+
+.value-item p {
+    font-size: 0.95rem;
+    color: var(--text-light);
+    margin: 0;
+}
+
+
+.product-intro {
+    padding: var(--spacing-2xl) 0;
+    background: linear-gradient(135deg, rgba(30, 58, 95, 0.05) 0%, rgba(107, 142, 95, 0.05) 100%);
+}
+
+.product-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--spacing-xl);
+    align-items: center;
+}
+
+@media (min-width: 768px) {
+    .product-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+.product-image {
+    order: 2;
+}
+
+@media (min-width: 768px) {
+    .product-image {
+        order: 1;
+    }
+}
+
+.product-image .placeholder {
+    height: 384px;
+    background: linear-gradient(135deg, rgba(30, 58, 95, 0.1) 0%, rgba(107, 142, 95, 0.1) 100%);
+}
+
+.product-text {
+    order: 1;
+}
+
+@media (min-width: 768px) {
+    .product-text {
+        order: 2;
+    }
+}
+
+.product-text h1 {
+    font-family: var(--font-display);
+    font-size: 2.5rem;
+    color: var(--primary);
+    margin-bottom: var(--spacing-md);
+    line-height: 1.2;
+}
+
+.product-text p {
+    font-size: 1.05rem;
+    color: var(--text-light);
+    margin-bottom: var(--spacing-lg);
+    line-height: 1.8;
+}
+
+
+.characteristics {
+    padding: var(--spacing-2xl) 0;
+    background-color: #fff;
+}
+
+.characteristics h2 {
+    font-family: var(--font-display);
+    font-size: 2.5rem;
+    text-align: center;
+    margin-bottom: var(--spacing-2xl);
+    color: var(--primary);
+}
+
+.features-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: var(--spacing-lg);
+}
+
+.features-table thead {
+    background-color: rgba(30, 58, 95, 0.1);
+    border-bottom: 2px solid var(--primary);
+}
+
+.features-table th {
+    padding: var(--spacing-md);
+    text-align: left;
+    font-weight: 600;
+    color: var(--primary);
+}
+
+.features-table td {
+    padding: var(--spacing-md);
+    border-bottom: 1px solid var(--border);
+}
+
+.features-table tbody tr:hover {
+    background-color: rgba(107, 142, 95, 0.05);
+    transition: background-color 0.3s ease;
+}
+
+.features-table strong {
+    color: var(--primary);
+}
+
+
+.benefits {
+    padding: var(--spacing-2xl) 0;
+    background-color: #fff;
+}
+
+.benefits h2 {
+    font-family: var(--font-display);
+    font-size: 2.5rem;
+    text-align: center;
+    margin-bottom: var(--spacing-2xl);
+    color: var(--primary);
+}
+
+
+.benefits-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--spacing-lg);
+}
+
+@media (min-width: 640px) {
+    .benefits-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (min-width: 1024px) {
+    .benefits-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+.benefit-card {
+    background-color: #fff;
+    padding: var(--spacing-lg);
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    transition: all 0.3s ease;
+}
+
+.benefit-card:hover {
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    border-color: var(--accent);
+}
+
+.benefit-icon {
+    font-size: 2.5rem;
+    margin-bottom: var(--spacing-md);
+}
+
+.benefit-card h3 {
+    font-size: 1.2rem;
+    color: var(--primary);
+    margin-bottom: var(--spacing-sm);
+    font-weight: 600;
+}
+
+.benefit-card p {
+    color: var(--text-light);
+    font-size: 0.95rem;
+    line-height: 1.6;
+}
+
+
+.testimonials {
+    padding: var(--spacing-2xl) 0;
+    background-color: #fff;
+}
+
+.testimonials h2 {
+    font-family: var(--font-display);
+    font-size: 2.5rem;
+    text-align: center;
+    margin-bottom: var(--spacing-2xl);
+    color: var(--primary);
+}
+
+
+.testimonials-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--spacing-lg);
+}
+
+@media (min-width: 768px) {
+    .testimonials-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (min-width: 1024px) {
+    .testimonials-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+.testimonial-card {
+    background-color: #fff;
+    padding: var(--spacing-lg);
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    transition: all 0.3s ease;
+}
+
+.testimonial-card:hover {
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+}
+
+.rating {
+    font-size: 1.2rem;
+    margin-bottom: var(--spacing-md);
+}
+
+.testimonial-text {
+    font-style: italic;
+    color: var(--text-light);
+    margin-bottom: var(--spacing-md);
+    line-height: 1.8;
+}
+
+.testimonial-author {
+    border-top: 1px solid var(--border);
+    padding-top: var(--spacing-md);
+}
+
+.author-name {
+    font-weight: 600;
+    color: var(--primary);
+    margin-bottom: 0.25rem;
+}
+
+.author-role {
+    font-size: 0.9rem;
+    color: var(--text-light);
+    margin-bottom: 0.25rem;
+}
+
+.author-company {
+    font-size: 0.9rem;
+    color: var(--accent);
+    font-weight: 600;
+}
+
+.testimonial-author p {
+    margin: 0;
+}
+
+
+.cta {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+    color: white;
+    padding: var(--spacing-2xl) 0;
+}
+
+.cta-content {
+    text-align: center;
+}
+
+.cta h2 {
+    font-family: var(--font-display);
+    font-size: 2.5rem;
+    margin-bottom: var(--spacing-lg);
+    line-height: 1.2;
+}
+
+.cta p {
+    font-size: 1.1rem;
+    margin-bottom: var(--spacing-xl);
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+    opacity: 0.95;
+}
+
+.cta-buttons {
+    display: flex;
+    gap: var(--spacing-md);
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+/* ============= SEÇÃO DE SERVIÇOS E DESAFIO ============= */
+#servicos {
+    display: grid;
+    grid-template-columns: 1fr; /* Lista empilhada no mobile */
+    gap: var(--spacing-lg);
+}
+
+@media (min-width: 768px) {
+    /* Coloca lado a lado no Tablet */
+    #servicos {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (min-width: 1024px) {
+    /* No Desktop, 3 colunas e desafio do Span 2 */
+    #servicos {
+        grid-template-columns: repeat(3, 1fr);
+    }
+    
+    /* DESAFIO CONCLUÍDO: Card premium ocupando 2 colunas */
+    .servico-premium {
+        grid-column: span 2;
+    }
+}
+
+/* Estética dos cards de serviço dentro do styles.css */
+#servicos article {
+    background-color: #fff;
+    padding: var(--spacing-lg);
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+#servicos article:hover {
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    border-color: var(--primary);
+}
+
+/* Destaca visualmente o card Premium com as cores do seu tema */
+#servicos .servico-premium {
+    border: 2px solid var(--primary);
+    background-color: rgba(30, 58, 95, 0.05);
+}
+
+.footer {
+    grid-area: rodape;
+    background-color: var(--primary);
+    color: white;
+    padding: var(--spacing-xl) 0;
+}
+
+.footer-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--spacing-xl);
+    margin-bottom: var(--spacing-xl);
+}
+
+@media (min-width: 768px) {
+    .footer-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+.footer-logo {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    margin-bottom: var(--spacing-md);
+    font-weight: 600;
+}
+
+.footer-logo .logo-icon {
+    background-color: white;
+    color: var(--primary);
+}
+
+.footer p {
+    font-size: 0.95rem;
+    opacity: 0.8;
+}
+
+.footer h4 {
+    font-weight: 600;
+    margin-bottom: var(--spacing-md);
+}
+
+.footer ul {
+    list-style: none;
+}
+
+.footer li {
+    font-size: 0.95rem;
+    opacity: 0.8;
+    margin-bottom: var(--spacing-sm);
+}
+
+.social-links {
+    display: flex;
+    gap: var(--spacing-md);
+}
+
+.social-links a {
+    color: white;
+    text-decoration: none;
+    opacity: 0.8;
+    transition: opacity 0.3s ease;
+}
+
+.social-links a:hover {
+    opacity: 1;
+}
+
+.footer-bottom {
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+    padding-top: var(--spacing-lg);
+    text-align: center;
+    font-size: 0.9rem;
+    opacity: 0.7;
+}
+
+/* ============= SEÇÃO DIFERENCIAIS (REQUISITO) ============= */
+/* Uso de grid-auto-flow: dense para organizar ícones */
+.diferenciais-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    grid-auto-flow: dense;
+    gap: var(--spacing-md);
+}
+
+.diferenciais-grid .destaque-largo {
+    grid-column: span 2;
+}
+
+.diferenciais-grid .destaque-alto {
+    grid-row: span 2;
+}
+
+@media (max-width: 640px) {
+    :root {
+        --spacing-2xl: 2.5rem;
+    }
+
+    .hero-text h1,
+    .about h2,
+    .characteristics h2,
+    .benefits h2,
+    .testimonials h2,
+    .cta h2 {
+        font-size: 1.8rem;
+    }
+
+    .hero-buttons {
+        flex-direction: column;
+    }
+
+    .btn-secondary,
+    .btn-outline {
+        width: 100%;
+        text-align: center;
+    }
+
+    .cta-buttons {
+        flex-direction: column;
+    }
+
+    .cta-buttons button {
+        width: 100%;
+    }
+}
