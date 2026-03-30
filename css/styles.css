@@ -311,6 +311,15 @@ body {
 
 .about-image {
     order: 2;
+    overflow: hidden; /* Esconde o que transbordar do container */
+    border-radius: 12px; /* Deixa as bordas arredondadas, opcional */
+    aspect-ratio: 16 / 10; /* Controla a proporção, evitando que a imagem achate */
+}
+
+.about-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Faz a mágica: preenche o espaço, mantém a proporção e corta o excesso (zoom e crop) */
 }
 
 @media (min-width: 768px) {
@@ -391,7 +400,7 @@ body {
     display: grid;
     grid-template-columns: 1fr;
     gap: var(--spacing-xl);
-    align-items: center;
+    align-items: start; /* Alinha os itens no topo, impedindo que a imagem estique */
 }
 
 @media (min-width: 768px) {
@@ -402,6 +411,15 @@ body {
 
 .product-image {
     order: 2;
+}
+
+.product-image img {
+    width: 100%;
+    height: auto; /* A altura se ajusta para manter a proporção */
+    aspect-ratio: 4 / 3; /* Define uma proporção para a imagem (ex: 4:3) */
+    object-fit: cover;
+    object-fit: contain; /* Garante que a imagem apareça inteira, sem cortes */
+    border-radius: 12px;
 }
 
 @media (min-width: 768px) {
@@ -685,12 +703,16 @@ body {
 @media (min-width: 1024px) {
     /* No Desktop, 3 colunas e desafio do Span 2 */
     #servicos {
-        grid-template-columns: repeat(3, 1fr);
+        /* Agora com 2 colunas para acomodar o novo layout */
+        grid-template-columns: repeat(2, 1fr);
     }
     
-    /* DESAFIO CONCLUÍDO: Card premium ocupando 2 colunas */
+    /* Card premium ocupando o espaço de 2 linhas na coluna da direita */
     .servico-premium {
-        grid-column: span 2;
+        grid-row: span 2; /* Faz o card ocupar 2 linhas de altura */
+        display: flex;
+        flex-direction: column;
+        justify-content: center; /* Centraliza o conteúdo no card mais alto */
     }
 }
 
@@ -707,6 +729,14 @@ body {
 #servicos article:hover {
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
     border-color: var(--primary);
+}
+
+/* Controla o tamanho das imagens dentro dos cards de serviço */
+#servicos article img {
+    height: 10em; /* Altura consistente com os placeholders */
+    max-width: 100%; /* Garante que não ultrapasse a largura do card */
+    object-fit: contain; /* Redimensiona sem distorcer ou cortar */
+    margin-bottom: var(--spacing-md); /* Adiciona espaço entre a imagem e o título */
 }
 
 /* Destaca visualmente o card Premium com as cores do seu tema */
